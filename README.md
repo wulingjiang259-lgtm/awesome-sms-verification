@@ -1,15 +1,39 @@
-# 接码平台对比与接码教程（美国实卡 / 长效接码）
+# 接码平台对比与接码教程（美国实卡接码 / 长效接码 / 收码成功率 / API）
 
-> 一个持续更新的接码资料库：号码类型对比、价格参考、收码成功率优化、批量与 API 对接示例。
-> 维护者：sms688 短信接码平台（<https://sms688.com>）｜Telegram 频道：[@qy688sms](https://t.me/qy688sms)（库存播报 / 补货通知 / 接码教程）— 本站主打美国 T-Mobile 实卡号码，2-30 天档位，支持续费与 API 对接。
+> 一个持续更新的接码资料库：号码类型对比、价格参考、收码成功率优化、批量接码与 API 对接示例。
+> 维护者：sms688 短信接码平台（<https://sms688.com>）｜Telegram 频道：[@qy688sms](https://t.me/qy688sms)（库存播报 / 补货通知 / 接码教程）
+> 主打：美国 T-Mobile **实卡（非 VoIP）** 号码，2-30 天档位可续费，支持号段选号、批量导出与 API 对接；同时提供美国静态住宅 IP / 原生 IP。
+
+**关键词**：接码、美国接码、美国实卡接码、长效接码、接码平台、美国手机号接收短信、Google Voice 接码、ChatGPT 接码、Codex 接码、Claude 接码、Wise 接码、美国银行接码、批量接码 API、接码源头。
+
+📚 **全部接码专题（300+ 篇）：<https://sms688.com/guides/all.html>**
 
 ## 这个仓库有什么
 
 - 接码号码类型对比（实卡 / 虚拟号 / VoIP / 公共免费号）
-- 常见平台的收码成功率经验与踩坑记录
+- 常见平台的收码成功率经验与踩坑记录（ChatGPT、Codex、Claude、Google Voice、Wise、PayPal、银行类）
 - 价格参考区间（按季度更新）
 - 批量接码与 API 对接示例代码（Python）
-- 新手教程与常见问题
+- 新手教程、换号与收不到码的排查清单
+- English quick start for non-VoIP US numbers
+
+## 场景入口（按用途直达）
+
+| 需求 | 直接看这篇 |
+|---|---|
+| 美国实卡接码（非 VoIP） | <https://sms688.com/guides/us-real-sim-sms.html> |
+| 长效接码 / 长期保号 | <https://sms688.com/guides/usa-real-sim-long-term.html> |
+| 美国接码完全指南 | <https://sms688.com/guides/us-sms.html> |
+| 接码源头（非二次转卖） | <https://sms688.com/guides/sms-source-upstream.html> |
+| ChatGPT / OpenAI 接码 | <https://sms688.com/guides/openai-chatgpt.html> |
+| Codex 接码 | <https://sms688.com/code/codex.html> |
+| Claude 接码 | <https://sms688.com/guides/claude-sms.html> |
+| Google Voice 接码 | <https://sms688.com/code/google-voice.html> |
+| Wise 开户接码 | <https://sms688.com/code/wise.html> |
+| 美国银行 / 金融类接码 | <https://sms688.com/guides/bank-sms.html> |
+| 批量接码 API / 下游对接 | <https://sms688.com/guides/bulk-api.html> |
+| 收不到码怎么排查 | <https://sms688.com/guides/sms-not-arrived.html> |
+| 美国静态住宅 IP / 换 IP | <https://sms688.com/ip/> |
 
 ## 快速开始
 
@@ -81,7 +105,17 @@ if __name__ == "__main__":
 
 ### 4. 接码链接怎么用
 
-每个号码自带一条公开接码链接（形如 `https://sms688.cc/sms/<token>`），**打开就是最新验证码，不需要 API Key**，可以直接发给终端客户；API 适合程序化批量取码。
+每个号码自带一条公开接码链接（形如 `https://sms688.com/sms/<token>`），**打开就是最新验证码，不需要 API Key**，可以直接发给终端客户；API 适合程序化批量取码，且下单支持一次买多个：
+
+```python
+# 一次买 20 个（号池优先出号，不够自动补货；拿不到就整单失败并退款，不会只发一半）
+order = buy("c1p37t1262", 20)   # 例：Claude 21-30 天档位
+print(len(order["numbers"]), "个号码，共", order["amount_usdt"], "USDT")
+for row in order["numbers"][:3]:
+    print(row["phone"], row["link"])
+```
+
+> 小提示：网页端下单会显示「正在分配号码…」，同一账号 9 秒内重复提交同一单会直接返回同一张订单，不会重复扣费。
 
 ## 收码成功率优化清单
 
@@ -120,3 +154,17 @@ if __name__ == "__main__":
 ---
 
 官网：<https://sms688.com>　客服 Telegram：[@qinyu688](https://t.me/qinyu688)
+
+## English quick start (US non-VoIP numbers for SMS verification)
+
+**What it is**: sms688 provides real US carrier (T-Mobile) physical-SIM numbers — **not VoIP** — for receiving SMS verification codes, plus long-term rental (2–30 days, renewable).
+
+**Why non-VoIP matters**: Google Voice, OpenAI/ChatGPT, Codex, Claude, Wise, PayPal and most US banks reject VoIP/virtual ranges. Physical-SIM ranges pass far more often.
+
+**Typical use cases**: ChatGPT / Codex / Claude signup, Google Voice application, Wise & PayPal verification, US bank SMS alerts, TikTok/Instagram/Telegram, bulk account operations.
+
+**How to buy**: open <https://sms688.com/#/market>, pick the project (e.g. Claude, OpenAI, Google Voice), choose a tier (2–10 / 11–20 / 21–30 days) and prefix, then set the quantity and confirm. Each number comes with its own SMS link; codes usually arrive within a minute.
+
+**API**: `GET /api/open/stock`, `POST /api/open/buy`, `GET /api/open/sms` with header `X-Api-Key: sk_...` — see [docs/api.md](./docs/api.md).
+
+**Full guide index (300+ pages)**: <https://sms688.com/guides/all.html>
